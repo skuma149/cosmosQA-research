@@ -184,7 +184,7 @@ class DataProcessor(object):
     def _read_csv(cls, input_file):
         """Reads a csv file."""
         lines = []
-        with open(input_file, 'r', encoding='utf8') as csv_file:
+        with open(input_file, 'r') as csv_file:
             reader = csv.DictReader(csv_file)
             for row in reader:
                 lines.append(row)
@@ -537,6 +537,7 @@ def main():
     num_train_steps = None
     if args.do_train:
         train_examples = processor.get_train_examples(args.data_dir)
+        train_examples = train_examples[:50]
         num_train_steps = int(
             len(train_examples) / args.train_batch_size / args.gradient_accumulation_steps * args.num_train_epochs)
 
